@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue路由器</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- <a href="/5、vue路由器..html#/index">首页</a>
+            <a href="/5、vue路由器..html#/product">商品</a>  -->
+
+            <!-- 用下面的代替上面的，因为用上面的访问太麻烦了，下面的等于是上面的简写
+             to里面的/index和/product是下面const router = new VueRouter绑定的path属性中的值
+            -->
+
+            <router-link to="/index">首页</router-link>
+            <router-link to="/product">商品</router-link> 
+
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+<!-- 下面这种引入script的方式是入门学习的方式，后面使用vue的脚手架：vue-cli来开发vue的应用的话，就不用这样引入方式了，而是使用import这样导入的方式 -->
+<script src="node_modules/vue/dist/vue.js"></script>
+<!-- 1.安装vue-router路由 
+       安装指定版本：npm i vue-router@2
+       默认安装新版本：npm install vue-router
+       卸载：npm uninstall vue-router
+     2.引入vue-router文件
+
+     3.要根据不同的url链接到不同的页面，需要使用模板来实现，将模板绑定对应的路由地址
+-->
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+
+
+
+<script type="text/javascript">
+    let Index = Vue.component("index", {
+        template: `<div>Hello,欢迎使用来到图灵商城！</div>`
+    });
+    let Product = Vue.component("product", {
+        template: `<ul><li>1.Iphone11</li><li>2.小米11</li></ul>`
+    });
+    //4.使用路由管理模板，将url跟模板进行绑定
+    const router = new VueRouter({
+        routes: [{
+                path: "/index",
+                component: Index
+            },
+            {
+                path: "/product",
+                component: Product
+            }
+        ]
+    })
+    var vm = new Vue({
+        el: '#app',
+        router //router: router的简写
+    })
+</script>
+
+</html>

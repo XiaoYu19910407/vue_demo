@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <div v-text="message"></div>
+      <!-- {{}}在网络延迟情况下会出现暂显的情况，对用户不友好 -->
+      {{message}}
+      <hr>
+      <div v-html="message"></div>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script>
+    //1.实例Vue
+    var vm = new Vue({
+     el: '#app',
+     data: {
+        message: "<a href='#'>Hello</a>"
+     }
+    })
+
+    //v-text 用于绑定数据，语法v-text="属性"，会直接将值作为文本显示
+    //v-html 会将值进行编译再显示
+
+</script>
+</html>

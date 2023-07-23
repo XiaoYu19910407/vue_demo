@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>父组件向子组件通信复杂数据类型</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 如果组件名称有大写的，不如我们这里组件名称是myList，L是大写，所以这里组件引用用my-List -->
+      <my-List :items="lessons"></my-List>
+    </div>
+
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <script type="text/javascript">
+      // 定义组件
+      const myList = {
+        template: `<ul>
+                <li v-for="item in items" :key="item.id">{{item.id}}--{{item.name}}</li>
+                </ul>`,
+        // 定义接收父组件的属性，也就是父组件向子组件通信用props
+        props: {
+          items: {
+            // 数据类型，如果是数组则是Array，如果是对象则是Object
+            type: Array,
+            // 默认值，这里是数组
+            default: [],
+            // 如果返回的是对象，default后面要加()，意思就是以方法的形式返回
+            // default(){}
+          },
+        },
+      };
+      // 全局注册组件：在所有的vue实例中都可以使用组件
+      // 参数1：组件名称，参数2：具体的组件
+      Vue.component("myList", myList);
+
+      var app = new Vue({
+        el: "#app",
+        data: {
+          msg: "父组件的msg属性数据内容",
+          lessons: [
+            { id: 1, name: "rain" },
+            { id: 2, name: "carrie" },
+            { id: 3, name: "xiao" },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>声明周期回调</title>
+</head>
+<body>
+    <div id = "app">
+        <span id = "name">{{name}}</span>
+        <button @click="updateName">更新</button>
+        <button @click="destroy">销毁</button>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                name:"hello !"
+            },
+            methods:{
+                updateName(){
+                    console.log("准备修改名字啦！")
+                    this.name="hello 图灵！"
+                },
+                destroy(){
+                    vm.$destroy()
+                }
+            },
+            beforeCreate(){
+                //此时页面数据未初始化
+                console.log("beforeCreate:" + this.name) //beforeCreate: undefined
+            },
+            created(){
+                //页面数据已经初始化
+                console.log("created:" + this.name) //beforeCreate: hello ！
+            },
+            beforeMount(){
+                console.log("beforeMount:" + this.name) //beforeCreate：hello !
+                console.log("html模板未渲染，beforeMount：" + document.getElementById("name").innerText);
+            },
+            mounted(){
+                console.log("mounted:" + this.name) //beforeCreate: hello !
+                console.log("html模板已渲染，mounted：" + document.getElementById("name").innerText);
+            },
+            //点击更新按钮后会先触发 beforeUpdate
+            beforeUpdate(){
+                console.log("beforeUpdate:" + this.name) //beforeCreate： hello
+                console.log("html模板未更新，beforeUpdate：" + document.getElementById("name").innerText);
+            },
+            updated(){
+                console.log("updated：" + this.name) //updated hello 图灵！
+                console.log("html模板已更新：" + document.getElementById("name").innerText);
+            },
+            //点击销毁按钮后先会触发 beforeDestroy
+            beforeDestroy(){
+                console.log("beforeDestroy:before destroy") //beforeDestroy:before destroy
+                console.log("销毁前：" + document.getElementById("name").innerText);
+            },
+            destroyed(){
+                //销毁是做对象清空、缓存清空
+                console.log("destroyed: success") // destroyed: success
+                //在这之后点击页面 更新按钮将无任何效果
+                console.log("销毁后" + document.getElementById("name").innerText);
+            }
+
+        })
+    </script>
+    
+</body>
+</html>

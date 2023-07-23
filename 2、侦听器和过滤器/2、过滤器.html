@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="user in userList">
+                                    <!-- 三元运算符的方式，只限于对象有两种值 -->
+                姓名:{{user.name}}; 性别:{{user.gender==1?"男":"女"}}
+                                    <!--也可以用这种方法 -->
+                                    性别:{{formateGender(user.gender)}}
+                                    <!-- 过滤器的方式 -->
+                                    性别:{{user.gender | filteGender}}
+            </li>
+        </ul>
+    </div>
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                userList:[
+                        {id:1,name:'xushu',gender:1},
+                        {id:2,name:'zhuge',gender:0}
+            ]
+            },
+            methods: {
+                formateGender(gender){
+                    if(gender==1){
+                        return "~男"
+                    }else{
+                        return "~女"
+                    }
+                }
+            },
+            //侦听器：专门针对数据过滤的
+            filters:{
+                filteGender(gender){
+                    if(gender==1){
+                        return "!男"
+                    }else{
+                        return "!女"
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="vif=!vif">切换显示隐藏</button>
+        <div v-if="vif" style="background-color: red;width: 200px;height: 200px;">
+          v-if
+        </div>
+        <hr>
+        <button @click="vshow=!vshow">切换显示隐藏</button>
+        <div v-show="vshow" style="background-color: yellow;width: 200px;height: 200px;">
+          v-show
+        </div>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+        vif: true,
+        vshow: true
+    }
+})
+
+/*
+v-if和v-show用于控制元素显示隐藏
+语法v-if="指定boolean值" v-show一样
+
+v-if 控制元素是否生成，意思就是去掉了，下面的元素会自动对上来
+v-show 控制元素是否显示隐藏，只是隐藏但是元素还在
+*/
+</script>
+</html>

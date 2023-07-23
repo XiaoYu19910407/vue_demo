@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>子组件向父组件通信.</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>num: {{num}}</h1>
+      <ul>
+        <li v-for="item in datas">{{item.id}}--{{item.name}}</li>
+      </ul>
+      <!-- 使用组件 -->
+      <counter @plus="numPlus" @reduce="numReduce" :snum="num"></counter>
+    </div>
+
+    <script src="/node_modules/vue/dist/vue.js"></script>
+
+    <script type="text/javascript">
+      //  这次我们用局部组件
+      const counter = {
+        template: `
+           <div>
+            <button @click="incrNum">+</button>
+            <button @click="decrNum">-</button>
+            </div>
+        `,
+        props: ["snum"],
+        methods: {
+          // 递增
+          incrNum() {
+            // 调用到父组件中的方法
+            // .$emit可以触发当前实例属性对应的方法，当前实例就是上面div标签中的<counter></counter>
+            // 因为我们这里就是定义组件，名称为counter，而div标签中是实例组件counter
+            // 当点击页面中的+的时候调用incrNum方法，然后触发子组件plus方向向父组件numPlus通信
+            // 这样就是实现了子组件向父组件通信
+            return this.$emit("plus", 
+            // 子组件也可以向父组件传递数据
+            [
+              { id: 1, name: "rain" },
+              { id: 2, name: "carrie" },
+              { id: 3, name: "xiaoyu" },
+            ]);
+          },
+          // 递减
+          decrNum() {
+            return this.$emit("reduce");
+          },
+        },
+      };
+
+      var app = new Vue({
+        el: "#app",
+        components: {
+          counter: counter,
+        },
+        data: {
+          num: 0,
+          datas: [],
+        },
+        methods: {
+          numPlus(data) {
+            console.log(data);
+            this.num++;
+            // 接收子组件传过来的数据
+            this.datas = data;
+          },
+          numReduce() {
+            this.num--;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

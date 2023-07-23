@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环</title>
+</head>
+<body>
+    <div id="app">
+    循环数据
+        <ul>
+            <li v-for="(item, index) in music">{{item.name}}----{{index}}</li>
+        </ul>
+    循环对象
+        <ul>
+            <li v-for="(item, index) in obj">{{item}}----{{index}}</li>
+        </ul>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            //要循环的数据
+            music:[
+                {name: '青花瓷'},
+                {name: '阳光总在风雨后'},
+                {name: '十年'}
+            ],
+            //要循环的对象
+            obj:{
+                name: '句号',
+                age: 18,
+                sex: '男'
+            }
+        }
+    })
+    /*
+    v-for：循环，可以循环数组和对象
+    语法： v-for="(每次循环接收的变量,当前循环的索引) in 需要循环的变量"
+    */
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <label>年龄：</label>
+            <input v-model="age"/>
+        </div>
+        <div>当前输入的年龄是：{{age}}</div>
+        <!-- @click就相当于v-on:click -->
+        <button @click="add">加一岁</button>
+        <button @click="alertYear">弹出年龄</button>
+
+    <hr>
+
+        <label>课程：</label>
+        <select v-model="course">
+            <option value="java">java</option>
+            <option value="html">html</option>
+            <option value="css">css</option>
+        </select>
+
+        <div>
+          <input v-model="course" type="radio" name="course" value="java">java
+          <input v-model="course" type="radio" name="course" value="html">html
+          <input v-model="course" type="radio" name="course" value="css">css
+        </div>
+
+        <div>当前的课程是：{{course}}</div>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+   var vm = new Vue({
+    el: "#app",
+    data:{
+        course:'html',
+        age:10
+    },
+    methods: {
+        add(){
+            this.age++;
+        },
+        alertYear(){
+            alert(this.age)
+        }
+        },
+   })
+   //v-model 用于实现双向绑定，一般用于表单元素
+</script>
+</html>

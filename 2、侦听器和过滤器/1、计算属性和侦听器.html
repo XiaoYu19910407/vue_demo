@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性和侦听器</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 实现一个购物车功能-->
+        
+        <!-- 1.数据初始化处理 -->
+        <ul>
+            <li v-for="(item, index) in car">
+                {{item.pname}} --- 商品价格： {{item.price}} --- 库存；{{item.stock}}
+                数量： <input type="number" v-model="item.num" style="width: 30px;"/>
+            </li>
+
+            <!-- 2.计算商品总价 -->
+            <li><strong>总价:</strong>{{calcSum}}</li>
+
+            <!-- 3.选择商品数量，当商品数量超过库存做提示 -->
+            <li v-html="warn()"></li>
+            <li v-html="message"></li>
+        </ul>
+        
+        
+    </div>
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                car:[
+                    {pname:"Iphone 12",price:7999,stock:10,num:1},
+                    {pname:"小米11",price:3599,stock:3,num:4}
+                ],
+                message:""
+            },
+            //methods：当方法中使用的数据发生改变，方法会自动调用
+            //用method要用{{calcSum()}}显示值
+            methods: {
+                // calcSum(){
+                //     let sum=0;
+                //     this.car.forEach(item=>{
+                //         sum += item.price*item.num;
+                //     });
+                //     return sum;
+                // },
+                warn(){
+                    let message ="";
+                    this.car.forEach(item => {
+                        if(item.num > item.stock){
+                            message+=`${item.pname}的数量超出库存<br>`;
+                        }
+                    });
+                    return message;
+                }
+                
+            },
+            //computed(计算属性)：当方法中使用的数据发生改变，方法会自动调用
+            //用computed要用{{calcSum}}显示值，也就是不能加小括号
+            computed:{
+                calcSum(){
+                    let sum=0;
+                    this.car.forEach(item=>{
+                        sum += item.price*item.num;
+                    });
+                    return sum;
+                },
+           },
+           //侦听器 专门用于侦听数据的变化，当数据发生变化会自动调用方法
+           watch:{
+               //要侦听的数据
+               car:{
+                   handler(newvalue,oldvalue){
+                    //每次进来的时候都给message清空
+                    this.message = "";
+                    this.car.forEach(item => {
+                        if(item.num > item.stock){
+                            this.message+=`${item.pname}的数量超出库存<br>`;
+                        }
+                    });
+                   },
+                   //因为要侦听的数据是复杂数据不是简单的属性，而是数组，如果侦听的是属性就不需要写deep:true
+                   deep:true
+               },
+               //基础类型的侦听，将侦听数据作为函数就可以了不需要写deep:true
+               message(newvalue,oldvalue){
+                console.log(newvalue,oldvalue);
+               }
+           }    
+        })
+        /*
+        methods和computed的区别：
+          1、调用不一样：methods要用()，computed不用()
+          2、computed是专门针对计算的，在计算方面性能比methods好
+        */
+
+        /*
+          方法和侦听器的区别：
+             方法：方法中任意数据发生了变化就会自动调用方法，一开始就得调用，这样的话初始化的时候也会调用，这是方法比侦听器好的地方，可以进行返回值
+             侦听器：需要指定具体的侦听数据，只有被具体指定的侦听数据发生才会触发，初始化时是不会触发的而且还会报错，所以侦听器不适合初始化的时候用
+               ，不像方法那样去调用，而是靠vue自动触发
+        */
+    </script>
+</body>
+</html>

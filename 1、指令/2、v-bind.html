@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <div v-bind:title="title" class="red"> -->
+        <!-- 简写：<div :title="title"> -->
+        <!-- 也可以这样,也是将背景色设置为红色 -->
+        <!-- <div v-bind:title="title" :class="red"> -->
+        <!-- 判断加不加红色背景 -->
+        <div v-bind:title="title" :class="{red:isred}" :style="{fontSize: bigFont}">
+            鼠标悬停查看消息!
+        </div>
+        <div>
+            <img :src="src"/>
+        </div>
+        <div>
+            <button v-bind:disabled="disabled">禁用按钮</button>
+            <!-- 简写：<button :disabled="disabled">禁用按钮</button> -->
+        </div>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            bigFont: "50px",
+            isred: true,
+            red: "red",
+            title: "你好，我是徐庶老师，欢迎来到图灵学院！希望你可以在图灵学院学到更到的东西！",
+            href: "https://www.tulingxueyuan.cn/",
+            src: "https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%B0%8F%E5%9B%BE%E7%89%87&step_word=&hs=0&pn=5&spn=0&di=7214885350303334401&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3228498886%2C1499644467&os=2271801931%2C2413519414&simid=3488101334%2C435018517&adpicid=0&lpn=0&ln=1243&fr=&fmq=1687278847687_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Fpicnew12.photophoto.cn%2F20180412%2Fxiaoqingxindongwushouhuikeaixiaolupng-32400140_1.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo8_z%26e3Bri5p5ri5p5_z%26e3BvgAzdH3Fp7rtwgAzdH3Fxtw5qtg2xtg15g2o7fi57i7thjwtxtw5s7rg2-nd9aa89a_z%26e3Bip4s&gsm=1e&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&dyTabStr=MTEsMCw2LDMsMSw0LDUsMiw3LDgsOQ%3D%3D",
+            disabled:true
+        }
+    })
+    //绑定元素属性 -- v-bind
+    /*
+    语法：  v-bind:元素属性="vue的属性"
+    简写：  v-bind:title简写成 :title，其实就是把前面的v-bind去掉就行
+    针对样式的特殊用法
+       动态控制class是否添加    :class="{red:isred}"
+         语法 {red:idred} :{需要动态控制的class样式:vue的属性(需要boolean类型)}
+       动态设置style的样式： :style="{fontSize: bigFont}"
+         语法 {fontSize: bigFont} : {css样式的驼峰命令方式: bigFont}，font-size=fontSize
+    */
+</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="hello('hello')">hello</button>
+        <!-- v-on:click="hello"中hello()的()是可以省略的，上面就是省略后的写法 -->
+        <button @click="hello('world')">world</button>
+        <button @click="num++">数据：{{num}}</button>
+    </div>
+</body>
+<script src="/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            num:0
+        },
+        methods: {
+            hello(str){
+                alert(str)
+            }
+        },
+    })
+
+    /*
+    v-on 用于绑定事件
+    语法 v-on:事件名 
+    简写方式 v-on:click -> @click
+    只能调用vue中的函数和数据
+    */
+</script>
+</html>

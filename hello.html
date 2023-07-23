@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="num" />
+      <button v-on:click="num++">登录</button>
+      <button v-on:click="loginout()">登出</button>
+      <h1 v-once>
+        {{name}},欢迎您，当前登录第{{num}}次，当前登录时间：{{nowDate()}}
+      </h1>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+      //1.new vue实例 每个Vue应用都是通过Vue函数创建一个新的Vue实例开始的
+      let vm = new Vue({
+        //el:"#app",  //挂载的模板
+        data: {
+          name: "图灵学院",
+          num: 1,
+        },
+        methods: {
+          nowDate() {
+            return new Date().toLocaleDateString();
+          },
+          loginout() {
+            this.num--;
+          },
+        },
+      }).$mount("#app");
+
+      //双向绑定：v-model 数据发生改变  视图也要随之改变
+      //指令：来简化对Dom的频繁操作
+      //方法：声明方法可以实现更复杂的操作，声明methods属性中
+    </script>
+  </body>
+</html>

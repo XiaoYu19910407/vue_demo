@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实例属性ref</title>
+</head>
+<body>
+    <div id="app">
+        <button ref="mybtn1" id="btn" @click="btnclick">show</button>
+        <button ref="mybtn2" id="btn" @click="btnclick">show</button>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vue = new Vue({
+            el:"#app",
+            methods: {
+                btnclick:function(){
+                    // innerText是修改内容，在这里就是将show改为ttttttttbbbbbbbnnnnnnn
+                    // ref的使用：
+                    //   在vue里面，往往使用ref属性来代替id属性使用，那么就可以快速的通过调用ref
+                    //   的值来获得页面中的某个元素
+                    // 这这个vue里面关联的很多ref都在$refs里面，如果要获取某一个，只需要像
+                    // 下面这样$refs.mybtn1，就可以获取，mybtn1就是上面ref里面的值
+                    this.$refs.mybtn1.innerText = "ttttttttbbbbbbbnnnnnnn";
+                    this.$refs.mybtn2.innerText = "ttttttttbbbbbbbnnnnnnn";
+                }
+            },
+        })
+    </script>
+</body>
+</html>
